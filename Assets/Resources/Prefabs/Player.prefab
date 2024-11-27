@@ -250,10 +250,10 @@ GameObject:
   - component: {fileID: 2078139990998919157}
   - component: {fileID: 8220254157078311046}
   - component: {fileID: 4624440603568045637}
-  - component: {fileID: 2200511345208646021}
+  - component: {fileID: 8514824297519851368}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -376,7 +376,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -408,7 +408,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 4624440603568045637}
-  - {fileID: 2200511345208646021}
+  - {fileID: 8514824297519851368}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &2200511345208646021
+--- !u!114 &8514824297519851368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -441,5 +441,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 10
-  _jumpForce: 10
+  _jumpForce: 7
   _namePlayer: {fileID: 4810563985991204730}

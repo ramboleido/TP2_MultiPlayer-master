@@ -7,26 +7,26 @@ using UnityEngine.SceneManagement;
 
 public class Carregamento : MonoBehaviourPunCallbacks
 {
-    [SerializeField] TMP_Text texto;
+    [SerializeField] private TMP_Text _texto;
     // Start is called before the first frame update
     void Start()
     {
-        // conecta no servidor Photon com as configurações predefinidas
+        // conecta no servidor Photon com as configuraï¿½ï¿½es predefinidas
         Debug.Log("Conectando....");
-        texto.text = "Conectando....";
+        _texto.text = "Conectando....";
         PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
     {
-        texto.text = "Conectado ao servidor photon...";
+        _texto.text = "Conectado ao servidor photon...";
         Debug.Log("Conectado ao servidor photon...");
         PhotonNetwork.JoinLobby();
     }
 
     public override void OnJoinedLobby()
     {
-        texto.text = "Entrei no lobby do servidor photon";
+        _texto.text = "Entrei no lobby do servidor photon";
         Debug.Log("Entrei no lobby do servidor photon");
         SceneManager.LoadScene("CreateGame");
     }

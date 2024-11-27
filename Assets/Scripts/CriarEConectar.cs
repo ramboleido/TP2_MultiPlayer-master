@@ -28,7 +28,7 @@ public class CriarEConectar : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        _options.MaxPlayers = 4;
+        _options.MaxPlayers = 2;
         _options.IsVisible = true;
         _options.IsOpen = true;
     }
