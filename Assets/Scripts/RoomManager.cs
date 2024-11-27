@@ -6,8 +6,11 @@ using UnityEngine;
 public class RoomManager : MonoBehaviour
 {
 
+    #region Variables
     public GameObject virtualCam;
-
+    #endregion
+    
+    #region 2D Methods
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !other.isTrigger)
@@ -23,4 +26,5 @@ public class RoomManager : MonoBehaviour
             virtualCam.SetActive(false);
         }
     }
+    #endregion
 }

@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
+    
+    #region Variables
     public static GameObject LocalPlayerInstance;
     [SerializeField] private float _moveSpeed = 10f;
     [SerializeField] private float _jumpForce = 10f;
@@ -20,15 +22,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private Rigidbody2D _rb;
     private string _nickName;
     private Vector2 _playerMovement;
+    #endregion
 
-
-
-    void Awake()
-    {
-
-    }
-
-
+    #region Unity Methods
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -79,13 +75,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
 
     }
+    #endregion
 
-    #region Jump Methods
+    #region 2D Methods
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
         
-        if (collision.gameObject.CompareTag("Ground"))
+        GameObject go = collision.gameObject;
+        
+        if (go.CompareTag("Ground"))
         {
             isGrounded = true;
             // Debug.Log("chao");
@@ -94,7 +93,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        
+        GameObject go = collision.gameObject;
+        
+        if (go.CompareTag("Ground"))
         {
             isGrounded = false;
         }
@@ -104,8 +106,10 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     {
         _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
     }
-    
+
     #endregion
+
+    #region Photon callbacks
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -136,5 +140,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
+
+    #endregion
+    
 
 }

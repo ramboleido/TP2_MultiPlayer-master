@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 public class CriarEConectar : MonoBehaviourPunCallbacks
 {
-    #region Campos Privados
+    #region Variables
 
     [SerializeField] private TMP_InputField _nickname;
     [SerializeField] private TMP_InputField _roomID;
@@ -19,7 +19,7 @@ public class CriarEConectar : MonoBehaviourPunCallbacks
 
     #endregion
 
-    #region Metodos Unity
+    #region Unity Methods
 
     private void Awake()
     {
@@ -40,7 +40,7 @@ public class CriarEConectar : MonoBehaviourPunCallbacks
 
     #endregion
 
-    #region Metodos Publicos
+    #region Public Methods
 
     public string GeraCodigo()
     {
@@ -86,7 +86,7 @@ public class CriarEConectar : MonoBehaviourPunCallbacks
 
     #endregion
 
-    #region Callbacks Photon 
+    #region Photon Callbacks
 
     public override void OnJoinedRoom()
     {

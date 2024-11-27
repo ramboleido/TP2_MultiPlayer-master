@@ -9,11 +9,13 @@ using JetBrains.Annotations;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    #region Variables
     [SerializeField] private List<GameObject> _playersPanels;
     [SerializeField] private TMP_Text _textPlayerCount;
     private int _playersCount;
-    
+    #endregion
 
+    #region Unity Methods
     private void Awake()
     {
         
@@ -24,7 +26,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         ChecaJogadores();
     }
+    #endregion
 
+    #region Private Methods
     private void ChecaJogadores()
     {
         _playersCount = PhotonNetwork.CurrentRoom.PlayerCount;
@@ -42,10 +46,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             _playersPanels[i].SetActive(true);
             _playersPanels[i].GetComponentInChildren<TMP_Text>().text = playersList[i].NickName;
         }
-
         
     }
+    #endregion
 
+    #region Public Methods
     public void StartGame()
     {
         if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
@@ -53,4 +58,5 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("GameScene");
         }
     }
+    #endregion
 }

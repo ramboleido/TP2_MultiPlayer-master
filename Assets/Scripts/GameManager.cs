@@ -9,10 +9,16 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    #region Variables
+
     public static GameManager Instance;
     [SerializeField] GameObject playerPrefab;
     [SerializeField] Transform playerSpawnerPosition;
 
+    #endregion
+    
+
+    #region Unity Methods
     private void Awake()
     {
         if (Instance == null)
@@ -28,10 +34,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate("Prefabs/" + playerPrefab.name, playerSpawnerPosition.position, Quaternion.identity);
         }
     }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-
-    }
+    #endregion
+    
 }

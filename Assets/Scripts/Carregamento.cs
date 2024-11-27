@@ -7,8 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class Carregamento : MonoBehaviourPunCallbacks
 {
+    #region Variables
     [SerializeField] private TMP_Text _texto;
-    // Start is called before the first frame update
+    #endregion
+
+    #region Unity Methods
     void Start()
     {
         // conecta no servidor Photon com as configura��es predefinidas
@@ -16,7 +19,9 @@ public class Carregamento : MonoBehaviourPunCallbacks
         _texto.text = "Conectando....";
         PhotonNetwork.ConnectUsingSettings();
     }
+    #endregion
 
+    #region Photon Callbacks
     public override void OnConnectedToMaster()
     {
         _texto.text = "Conectado ao servidor photon...";
@@ -30,4 +35,5 @@ public class Carregamento : MonoBehaviourPunCallbacks
         Debug.Log("Entrei no lobby do servidor photon");
         SceneManager.LoadScene("CreateGame");
     }
+    #endregion
 }
