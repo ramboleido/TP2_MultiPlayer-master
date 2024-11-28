@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class KeyHolder : MonoBehaviour
+public class KeyHolder : MonoBehaviourPunCallbacks
 {
     private List<Key.KeyType> keyList;
     private bool isNearKey = false;
@@ -12,6 +14,7 @@ public class KeyHolder : MonoBehaviour
     {
         keyList = new List<Key.KeyType>();
     }
+
 
     private void Update()
     {
@@ -28,6 +31,15 @@ public class KeyHolder : MonoBehaviour
         }
     }
 
+    public void PickupKeyRPC(Key.KeyType keyType)
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("PickupKeyRPC", RpcTarget.All, keyType);
+        }
+    }
+
+    [PunRPC]
     public void AddKey(Key.KeyType keyType)
     {
         Debug.Log("Added key: " + keyType);
@@ -44,6 +56,7 @@ public class KeyHolder : MonoBehaviour
         return keyList.Contains(keyType);
     }
 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Key key = collision.GetComponent<Key>();

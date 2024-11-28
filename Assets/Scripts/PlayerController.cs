@@ -63,15 +63,18 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        float moveH = Input.GetAxisRaw("Horizontal");
-        float moveV = Input.GetAxisRaw("Vertical");
-        _playerMovement = new Vector2(moveH * _moveSpeed, _rb.velocity.y);
-        
-        bool jump = Input.GetButtonDown("Jump");
-
-        if (jump && isGrounded)
+        if (photonView.IsMine)
         {
-            Pular();
+            float moveH = Input.GetAxisRaw("Horizontal");
+            float moveV = Input.GetAxisRaw("Vertical");
+            _playerMovement = new Vector2(moveH * _moveSpeed, _rb.velocity.y);
+
+            bool jump = Input.GetButtonDown("Jump");
+
+            if (jump && isGrounded)
+            {
+                Pular();
+            }
         }
 
     }
@@ -102,8 +105,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [PunRPC]
-    public void Pular()
+    private void Pular()
     {
         _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
     }
