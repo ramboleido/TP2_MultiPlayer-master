@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         if (go.CompareTag("Ground"))
         {
             isGrounded = true;
-            // Debug.Log("chao");
+            //Debug.Log("chao");
         }
     }
     
@@ -101,7 +101,8 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             isGrounded = false;
         }
     }
-    
+
+    [PunRPC]
     public void Pular()
     {
         _rb.velocity = new Vector2(_rb.velocity.x, _jumpForce);
