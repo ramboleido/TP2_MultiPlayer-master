@@ -6,10 +6,13 @@ using Photon.Realtime;
 using System;
 using TMPro;
 using JetBrains.Annotations;
+using UnityEngine.UI;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     #region Variables
+    private int currentCharacterIndex = 0;
+    [SerializeField] private List<Sprite> characterSprites;
     [SerializeField] private List<GameObject> _playersPanels;
     [SerializeField] private TMP_Text _textPlayerCount;
     private int _playersCount;
@@ -20,6 +23,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         
         ChecaJogadores();
+        AtualizarSpritesNosPaineis();
     }
 
     private void Update()
@@ -48,9 +52,29 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         
     }
+
+    private void AtualizarSpritesNosPaineis()
+    {
+        for (int i = 0; i < _playersPanels.Count; i++)
+        {
+            if (i < characterSprites.Count)
+            {
+                Image spriteImage = _playersPanels[i].transform.Find("CharacterSprite").GetComponent<Image>();
+                spriteImage.sprite = characterSprites[i];
+            }
+        }
+    }
     #endregion
 
     #region Public Methods
+    
+    public void RotateCharacter()
+    {
+        // Alterna entre 0 e 1
+        currentCharacterIndex = (currentCharacterIndex + 1) % characterSprites.Count;
+        Debug.Log("Personagem selecionado: " + currentCharacterIndex);
+        SelectCharacter(currentCharacterIndex);
+    }
     public void StartGame()
     {
         if (PhotonNetwork.IsConnected && PhotonNetwork.IsMasterClient)
@@ -58,5 +82,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("GameScene");
         }
     }
+
+    public void SelectCharacter(int characterIndex)
+    {
+        if (PhotonNetwork.LocalPlayer != null)
+        {
+            // Salva a escolha de personagem nos CustomProperties
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable
+            { 
+                { "CharacterIndex", characterIndex } 
+            });
+            Debug.Log($"Personagem {characterIndex} selecionado.");
+        }
+    }
+    
     #endregion
 }

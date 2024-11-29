@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEditor.Tilemaps;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
@@ -22,6 +23,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private Rigidbody2D _rb;
     private string _nickName;
     private Vector2 _playerMovement;
+    
+    
+    #endregion
+    
+    #region Lists
+    public List<TypeButton> listButtons = new List<TypeButton>(); 
     #endregion
 
     #region Unity Methods
@@ -92,6 +99,12 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             isGrounded = true;
             //Debug.Log("chao");
         }
+
+        if (go.CompareTag("Door"))
+        {
+            Debug.Log("Precisa apertar os botões para abrir a porta");
+        }
+        
     }
     
     private void OnCollisionExit2D(Collision2D collision)
@@ -103,6 +116,26 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         {
             isGrounded = false;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject go = collision.gameObject;
+        
+        TypeButton buttonComponent = go.GetComponent<Buttons>().type;
+        
+
+        if (Input.GetKey(KeyCode.E) && go.CompareTag("Button"))
+        {
+            Debug.Log($"Tipo do botão: {buttonComponent}");
+            listButtons.Add(buttonComponent);
+            go.SetActive(false);
+        }
+        else if (go.CompareTag("Door"))
+        {
+            Debug.Log("Precisa apertar os botões para abrir a porta");
+        }
+        
     }
 
     private void Pular()
