@@ -106,7 +106,19 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         }
         
     }
-    
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        GameObject go = collision.gameObject;
+
+        if (Input.GetKey(KeyCode.E) && go.CompareTag("Door"))
+        {
+            go.SetActive(false);
+        }
+    }
+
+
+
     private void OnCollisionExit2D(Collision2D collision)
     {
         
@@ -121,21 +133,27 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     private void OnTriggerEnter2D(Collider2D collision)
     {
         GameObject go = collision.gameObject;
-        
+
         TypeButton buttonComponent = go.GetComponent<Buttons>().type;
-        
+
+        if (go.CompareTag("Button"))
+        {
+            Debug.Log($"Tipo do botão: {buttonComponent}");
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        GameObject go = collision.gameObject;
+
+        TypeButton buttonComponent = go.GetComponent<Buttons>().type;
 
         if (Input.GetKey(KeyCode.E) && go.CompareTag("Button"))
         {
-            Debug.Log($"Tipo do botão: {buttonComponent}");
             listButtons.Add(buttonComponent);
             go.SetActive(false);
         }
-        else if (go.CompareTag("Door"))
-        {
-            Debug.Log("Precisa apertar os botões para abrir a porta");
-        }
-        
     }
 
     private void Pular()
