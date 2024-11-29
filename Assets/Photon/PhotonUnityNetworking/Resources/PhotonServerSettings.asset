@@ -41,6 +41,8 @@ MonoBehaviour:
   - RespawnSpaceship
   - ReceiveMessage
   - Pular
+  - AddKey
+  - OpenDoorRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
